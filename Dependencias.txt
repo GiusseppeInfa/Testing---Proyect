@@ -1,0 +1,5 @@
+Enlace de la web:
+http://localhost:5000/
+
+Dependencias:
+pip install flask

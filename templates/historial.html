@@ -1,0 +1,20 @@
+<h2>Historial Académico</h2>
+
+<p><strong>Nombre:</strong> {{ estudiante.nombre }}</p>
+
+<h3>Notas:</h3>
+
+<ul>
+{% for n in estudiante.notas %}
+    <li>
+        {{ n.valor }}
+        <a href="/editar/{{ codigo }}/{{ loop.index0 }}">Editar</a>
+        <a href="/eliminar/{{ codigo }}/{{ loop.index0 }}">Eliminar</a>
+    </li>
+{% endfor %}
+</ul>
+
+<p><strong>Promedio:</strong> {{ promedio }}</p>
+<p><strong>Estado:</strong> {{ estado }}</p>
+
+<a href="/menu">Volver</a>

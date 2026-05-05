@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Menú - Sistema de Notas</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f9;
+        }
+
+        .container {
+            width: 700px;
+            margin: 40px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .estado {
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+
+        .activo { background: #d4edda; color: #155724; }
+        .no { background: #fff3cd; color: #856404; }
+        .fin { background: #f8d7da; color: #721c24; }
+
+        input, button {
+            padding: 8px;
+            margin: 5px 0;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        a {
+            margin-left: 10px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Sistema de Registro de Notas</h2>
+
+    <p><strong>Periodo:</strong> {{ fecha_inicio }} - {{ fecha_fin }}</p>
+
+    <!-- ESTADO DEL SISTEMA -->
+    {% if estado == "activo" %}
+        <div class="estado activo">🟢 Registro ACTIVO</div>
+    {% elif estado == "no_iniciado" %}
+        <div class="estado no">🟡 Aún no inicia el registro</div>
+    {% else %}
+        <div class="estado fin">🔴 Registro FINALIZADO</div>
+    {% endif %}
+
+    <!-- FORMULARIO REGISTRAR NOTA -->
+    <h3>Registrar Nota</h3>
+
+    <form action="/registrar" method="post">
+        <input type="text" name="codigo" placeholder="Código estudiante" required>
+        <input type="text" name="nota" placeholder="Nota (0-20 o NSP)" required>
+        <button type="submit">Guardar Nota</button>
+    </form>
+
+    <hr>
+
+    <!-- LISTA DE ESTUDIANTES -->
+    <h3>Estudiantes</h3>
+
+    <ul>
+        {% for cod, est in estudiantes.items() %}
+            <li>
+                <strong>{{ est.nombre }}</strong>
+                ({{ est.notas|length }}/3 notas)
+
+                <a href="/historial/{{ cod }}">Ver historial</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <br>
+
+    <!-- LOGOUT -->
+    <a href="/logout">Cerrar sesión</a>
+
+</div>
+
+</body>
+</html>
