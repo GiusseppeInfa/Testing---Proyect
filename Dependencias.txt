@@ -4,7 +4,7 @@ http://localhost:5000/
 Dependencias:
 pip install flask
 pip install pytest flask
-
+pip install mysql-connector-python
 
 cd C:\ruta del archivo \Testing---Proyect
 .\.venv\Scripts\python.exe -m pip install flask pytest
