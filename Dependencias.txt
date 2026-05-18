@@ -15,7 +15,6 @@ Para ejecutar los casos de prueba:
 python -m pytest -v
 
 python db.py
-python crear_usuarios.py
 python app.py
 
 
@@ -29,3 +28,7 @@ ADMINISTRADOR:
 PROFESOR:
 	USUARIO: profe1
 	CONTRASEÑA: 1234
+
+
+//En caso no funcionen la DB se creara con el script y estara vacia, ejecutar, antes de iniciar la app
+python crear_usuarios.py
