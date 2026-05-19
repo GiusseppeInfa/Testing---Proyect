@@ -7,7 +7,9 @@ import mysql.connector
 app = Flask(__name__)
 app.secret_key = "clave_secreta"
 
-
+FECHA_INICIO = datetime(2026,5, 15)
+FECHA_FIN = datetime(2026, 6, 30)
+MAX_NOTAS = 3
 
 # -------- FUNCIONES --------
 
@@ -325,7 +327,11 @@ def editar_nota(nota_id):
     if not es_profesor():
         flash("Solo los profesores pueden modificar notas.", "error")
         return redirect(url_for("menu"))
-
+    
+    if estado_plazo() != "activo":
+        flash("Fuera del periodo de registro.", "warning")
+        return redirect(url_for("menu"))
+        
     conexion = obtener_conexion()
     cursor = conexion.cursor(dictionary=True)
 
@@ -397,6 +403,10 @@ def eliminar_nota(nota_id):
 
     if not es_profesor():
         flash("Solo los profesores pueden eliminar notas.", "error")
+        return redirect(url_for("menu"))
+        
+    if estado_plazo() != "activo":
+        flash("Fuera del periodo de registro.", "warning")
         return redirect(url_for("menu"))
 
     conexion = obtener_conexion()
